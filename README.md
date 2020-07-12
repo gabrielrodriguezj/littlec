@@ -19,5 +19,5 @@ little C no es interprete más eficiente ni el mejor, pero cumple con su propós
 ##### funciones que pueden devolver 'int' ('char' es compatible pero siempre se promociona(transforma) a 'int').
 ##### comentarios de estilo C como '/* */' y comentarios de estilo C++ como '//'
 
-#### Referencia.
+## Referencia.
 https://www.drdobbs.com/cpp/building-your-own-c-interpreter/184408184
