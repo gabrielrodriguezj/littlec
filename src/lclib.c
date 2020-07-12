@@ -2,7 +2,8 @@
 
 /* Añada aquí las funciones propias. */
 
-#include <conio.h>  /* si el compilador no admite este
+
+/*#include <conio.h>*/  /* si el compilador no admite este
                        archivo de cabecera, elimínelo */
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,7 +40,8 @@ void putback(void);
 int call_getche(void)
 {
 	char ch;
-	ch = getche();
+	//ch = getche();
+	ch = getchar();
 	while (*prog != ')') prog++;
 	prog++;   /* avanza al final de la línea */
 	return ch;
@@ -105,8 +107,23 @@ int getnum(void)
 {
 	char s[80];
 
+	/* Si el compilador admite la función get usar esta sección de código */
+	/*
     gets(s);
 	while (*prog != ')') prog++;
-    prog++;  /* avanza al final de la línea */
+    prog++;  /* avanza al final de la línea * /
 	return atoi(s);
+	*/
+	
+	/* Si el compilador no admite la función get usar esta sección de código */
+	if (fgets(s, sizeof(s), stdin) != NULL) {
+		while (*prog != ')') prog++;
+		prog++;  /* avanza al final de la línea */
+		return atoi(s);
+	}
+	else {
+		return 0;
+	}
+
+	
 }

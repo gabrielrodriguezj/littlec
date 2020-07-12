@@ -83,7 +83,7 @@ struct intern_func_type {
 	"puts", call_puts,
 	"print", print,
 	"getnum", getnum,
-	"", 0 } /* nulo que termina la lista */
+	"", 0  /* nulo que termina la lista */
 };
 
 extern char token[80]; /* representación como cadena del token */
@@ -349,7 +349,7 @@ void sntx_err(int error)
 }
 
 /* Obtener un token. */
-char get_token(void)
+int get_token(void)
 {
 
 	register char *temp;
@@ -491,7 +491,7 @@ void putback(void)
 /* Buscar la representación interna de un token en la tabla
    de tokens.
 */
-char look_up(char *s)
+int look_up(char *s)
 {
 	register int i;
 	char *p;

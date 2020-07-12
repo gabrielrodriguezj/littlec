@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
     if(!load_program(p_buf, argv[1])) exit(1);
     if(setjmp(e_buf)) exit(1); /* inicializa el búfer de longjmp */
 
-    gvar_index = 0: /* inicializa el índice de variables globales */
+    gvar_index = 0; /* inicializa el índice de variables globales */
 
     /* puntero del programa al principio del búfer del programa */
     prog = p_buf;
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
     functos = 0; /* inicializa el índice de pila de llamadas */
 
     /* configurar la llamada a main() */
-    prog = find_func("main"): /* buscar punto de entrada al programa */
+    prog = find_func("main"); /* buscar punto de entrada al programa */
 
     if(!prog){ /* función main() incorrecta o ausente */
         printf("main() no encontrada. \n");
