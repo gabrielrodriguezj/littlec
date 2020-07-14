@@ -369,6 +369,13 @@ int get_token(void)
 		while (iswhite(*prog) && *prog) ++prog;
 	}
 
+	/* Manejo de saltos de línea en Unix */
+	if (*prog == '\n') {
+		++prog;
+		/* ignorar espacios en blanco */
+		while (iswhite(*prog) && *prog) ++prog;
+	}
+
 	if (*prog == '\0') { /* final del archivo */
 		*token = '\0';
 		tok = FINISHED;

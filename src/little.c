@@ -116,17 +116,18 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    /* cargar el programa a ejecutar */
+	/* cargar el programa a ejecutar */
     if(!load_program(p_buf, argv[1])) exit(1);
     if(setjmp(e_buf)) exit(1); /* inicializa el búfer de longjmp */
 
     gvar_index = 0; /* inicializa el índice de variables globales */
 
-    /* puntero del programa al principio del búfer del programa */
+	/* puntero del programa al principio del búfer del programa */
     prog = p_buf;
-    prescan(); /* busca la posición de todas las funciones
-                  y variables globales en el programa */
 
+	prescan(); /* busca la posición de todas las funciones
+                  y variables globales en el programa */
+	
     lvartos = 0; /* inicializa el índice de pila de vars. locales */
     functos = 0; /* inicializa el índice de pila de llamadas */
 
@@ -141,7 +142,7 @@ int main(int argc, char *argv[])
     prog--; /* retroceder al "("" de apertura */
     strcpy(token, "main");
     call(); /* iniciar la interpretación */
-
+	
     return 0;
 }
 
@@ -231,6 +232,8 @@ int load_program(char *p, char *fname)
    almacenar todas las variables globales. */
 void prescan(void)
 {
+
+	int contador = 1;
     char *p, *tp;
     char temp[32];
     int datatype;
