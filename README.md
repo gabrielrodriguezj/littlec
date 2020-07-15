@@ -16,11 +16,11 @@ little C no es interprete más eficiente ni el mejor, pero cumple con su propós
 * sentencia 'return', con o sin un valor.
 * biblioteca estándar limitada que se incluye con el código.
 * operadores y operaciones con +, -, *, /, %, <, >, <=, >=, ==, !=, unario -, y unario +.
-* funciones que pueden devolver 'int' ('char' es compatible pero siempre se promociona(transforma) a 'int').
-* comentarios de estilo C como '/* */' y comentarios de estilo C++ como '//'
+* funciones que pueden devolver 'int' (se puede usar el tipo 'char' pero siempre se promueve(transforma) a 'int').
+* comentarios de estilo C como '/* */' 
 
 ## Posibles mejoras
-* comentarios //
+* comentarios de estilo C++ como '//'
 * Implementación de palabras clave brake y continue
 * Si las llaves están juntas a una palabra clave la considera como variable: "do{" vs "do {"
 * Implementar nuevos tipos de datos, incluyendo el uso del void
