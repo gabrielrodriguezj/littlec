@@ -124,7 +124,6 @@ int main(int argc, char *argv[])
 
 	/* puntero del programa al principio del búfer del programa */
     prog = p_buf;
-
 	prescan(); /* busca la posición de todas las funciones
                   y variables globales en el programa */
 	
@@ -174,7 +173,6 @@ void interp_block(void)
             if(*token == '{') /* es un bloque */
                 block = 1; /* interpretar un bloque, no una instrucción */
             else return; /* es "}", por lo que ejecuta return */
-
         }
         else /* es palabra clave */
             switch(tok){
@@ -232,8 +230,6 @@ int load_program(char *p, char *fname)
    almacenar todas las variables globales. */
 void prescan(void)
 {
-
-	int contador = 1;
     char *p, *tp;
     char temp[32];
     int datatype;

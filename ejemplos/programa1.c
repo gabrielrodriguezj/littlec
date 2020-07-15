@@ -9,20 +9,20 @@ char c;
 
 int main()
 {
-    int i, j;   /* variables globales */
+    int i, j;   /* variables locales */
 
     puts("Programa de demostración de littleC.");
 
     print_alfa();
 
-    do{
+    do {
         puts("introduce un número (0 para salir): ");
         i = getnum();
-        if(i < 0){
+        if(i < 0) {
             puts("los números han de ser postivos, prueba de nuevo ");
         }
-        else{
-            for(j = 0; j < i; j=j+1){
+        else {
+            for(j = 0; j < i; j=j+1) {
                 print(j);
                 print("la suma es ");
                 print(suma(j));

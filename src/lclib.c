@@ -27,7 +27,7 @@ enum error_msg
     NOT_VAR, PARAM_ERR, SEMI_EXPECTED,
     UNBAL_BRACES, FUNC_UNDEF, TYPE_EXPECTED,
     NEST_FUNC, RET_NOCALL, PAREN_EXPECTED,
-    WHILE_EXPECTED, QUOTE_EXPECTED, NOT_TEMP,
+    WHILE_EXPECTED, QUOTE_EXPECTED, NOT_STRING,
     TOO_MANY_LVARS, DIV_BY_ZERO
 };
 
@@ -35,7 +35,7 @@ int get_token(void);
 void sntx_err(int error), eval_exp(int *result);
 void putback(void);
 
-/* Obtener un carácter de la consola. (Úsense getchar() si 
+/* Obtener un carácter de la consola. (Úsese getchar() si 
    el compilador no admite getche().) */
 int call_getche(void)
 {

@@ -337,12 +337,31 @@ void sntx_err(int error)
 		p++;
 		if (*p == '\r') {
 			linecount++;
+
+			/* mejora para determinar saltos de líneas en unix y windoes para así
+				obtener el número correcto de la línea donde se encuentra el error */
+			if (p == prog) {
+				break;
+			}
+			/* determinar si en salto de línea de Windows o Unix */
+			p++;
+			/* si en un salto unix, regresar el apuntador */
+			if (*p != '\n') {
+				p--;
+			}
         }
+		else if (*p == '\n') {
+			linecount++;
+		}
+		else if (*p == '\0') {
+			linecount++;
+		}
 	}
 	printf(" en la línea %d\n", linecount);
 
-	temp = p;
-	for (i = 0; i < 20 && p > p_buf && *p != '\n'; i++, p--);
+	/* siguientes 2 líneas modificadas ligeramente */
+	temp = p--;
+	for (i = 0; i < 20 && p > p_buf && *p != '\n' && *p != '\r'; i++, p--);
 	for (i = 0; i < 30 && p <= temp; i++, p++) printf("%c", *p);
 
 	longjmp(e_buf, 1); /* volver a un lugar seguro */
@@ -362,9 +381,13 @@ int get_token(void)
 	/* ignorar espacion en blanco */
 	while (iswhite(*prog) && *prog) ++prog;
 
+	/* Manejar saltos de línea Windows y Mac */
 	if (*prog == '\r') {
 		++prog;
-		++prog;
+		/* Ignorar \n sólo si existe (si no, significa que se está ejecutando es UNIX) */
+		if (*prog == '\n') {
+			++prog;
+		}
 		/* ignorar espacios en blanco */
 		while (iswhite(*prog) && *prog) ++prog;
 	}
@@ -395,7 +418,11 @@ int get_token(void)
 		if (*(prog + 1) == '*') { /* es un comentario */
 			prog += 2;
 			do { /* buscar el final del comentario */
-				while (*prog != '*') prog++;
+				while (*prog != '*' && *prog != '\0') prog++;
+				if (*prog == '\0') {
+					prog--;
+					break;
+				}
 				prog++;
 			} while (*prog != '/');
 			prog++;
@@ -456,10 +483,10 @@ int get_token(void)
 		return (token_type = DELIMITER);
 	}
 
-	if (*prog == '"') { /* cadena sin comillas */
+	if (*prog == '"') { /* cadena con comillas */
 		prog++;
-		while (*prog != '"' && *prog != '\r') *temp++ = *prog++;
-		if (*prog == '\r') sntx_err(SYNTAX);
+		while (*prog != '"' && *prog != '\r' && *prog != '\n') *temp++ = *prog++;
+		if (*prog == '\r' || *prog == '\n') sntx_err(SYNTAX);
 		prog++; *temp = '\0';
 		return (token_type = STRING);
 	}
@@ -530,8 +557,10 @@ int internal_func(char *s)
 /* Devolver cierto(true) si el parámetro c es un delimitador. */
 int isdelim(char c)
 {
+	/* aquí se hace una pequeña adaptación al código original
+	   para considerar al salto de línea UNIX como un separador */
 	if (strchr(" !;,+-<>'/*%^=()", c) || c == 9 ||
-		c == '\r' || c == 0) return 1;
+		c == '\r' || c == '\n' || c == 0) return 1;
 	return 0;
 }
 
